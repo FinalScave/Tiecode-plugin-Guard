@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.tiecode.plugin.stringencode">
+
+    <application
+        android:name=".StringEncodePlugin"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        tools:targetApi="31" >
+
+    <meta-data
+        android:name="tiecode_plugin"
+        android:value="true" />
+    <meta-data
+        android:name="plugin_name"
+        android:value="@string/app_name" />
+    <meta-data
+        android:name="plugin_versionCode"
+        android:value="1" />
+    <meta-data
+        android:name="plugin_versionName"
+        android:value="1.0.0" />
+    <meta-data
+        android:name="plugin_targetVersion"
+        android:value="1" />
+    <meta-data
+        android:name="plugin_author"
+        android:value="结绳项目团队" />
+    <meta-data
+        android:name="plugin_note"
+        android:value="用于在结绳中文系列项目构建时加密字符串" />
+
+    </application>
+
+</manifest>
