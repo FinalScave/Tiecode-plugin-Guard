@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Tiecode-plugin-StringEncode"
+rootProject.name = "Tiecode-plugin-Guard"
 include ':app'

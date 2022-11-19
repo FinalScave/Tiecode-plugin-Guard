@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">结绳中文系列字符串加密器</string>
+    <string name="app_name">结绳中文系列应用保护器</string>
+    <string name="plugin_desc">用于在结绳中文系列项目提供基础保护功能，比如混淆、字符串加密等，目前支持结绳安卓工程，
+    结绳Linux工程、结绳网页工程</string>
 </resources>

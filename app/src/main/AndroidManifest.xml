@@ -32,7 +32,7 @@
         android:value="结绳项目团队" />
     <meta-data
         android:name="plugin_note"
-        android:value="用于在结绳中文系列项目构建时加密字符串" />
+        android:value="@string/plugin_desc" />
 
     </application>
 

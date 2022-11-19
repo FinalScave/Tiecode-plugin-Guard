@@ -16,14 +16,19 @@ import java.util.List;
 
 public class StringEncodeAction extends TiecodeCompilerAction {
     private Context context;
+    private Options options;
 
     @Override
     public void init(Context context) {
         this.context = context;
+        this.options = Options.instance(context);
     }
 
     @Override
     public void onEventStarted(TaskEvent event) {
+        if (options.outPath == null) {
+            return;
+        }
         switch (event.getKind()) {
             case PARSE:
                 writeEncodeSource();
