@@ -1,4 +1,4 @@
-package com.tiecode.plugin.stringencode;
+package com.tiecode.plugin.guard.stringencode;
 
 import com.tiecode.platform.compiler.toolchain.parser.TiecodeToken;
 import com.tiecode.platform.compiler.toolchain.tree.TCTree;

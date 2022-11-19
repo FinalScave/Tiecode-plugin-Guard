@@ -1,4 +1,4 @@
-package com.tiecode.plugin.stringencode;
+package com.tiecode.plugin.guard;
 
 import com.tiecode.develop.plugin.chinese.base.api.compiler.TiecodeCompilerAction;
 import com.tiecode.develop.util.firstparty.android.AssetUtils;
@@ -11,10 +11,12 @@ import com.tiecode.platform.compiler.toolchain.env.Context;
 import com.tiecode.platform.compiler.toolchain.env.Options;
 import com.tiecode.platform.compiler.toolchain.tree.TCTree;
 import com.tiecode.platform.compiler.toolchain.tree.code.TiecodeTrees;
+import com.tiecode.plugin.guard.GuardPlugin;
+import com.tiecode.plugin.guard.stringencode.StringEncoder;
 
 import java.util.List;
 
-public class StringEncodeAction extends TiecodeCompilerAction {
+public class GuardCompilerAction extends TiecodeCompilerAction {
     private Context context;
     private Options options;
 
@@ -35,6 +37,7 @@ public class StringEncodeAction extends TiecodeCompilerAction {
                 break;
             case ENTER:
                 modifyStrings();
+                modifyControlFlows();
                 break;
         }
     }
@@ -47,7 +50,7 @@ public class StringEncodeAction extends TiecodeCompilerAction {
         } else if (target == Options.Target.JS) {
             filename = "decode-js.t";
         }
-        String content = AssetUtils.readAsset(StringEncodePlugin.pluginContext, filename);
+        String content = AssetUtils.readAsset(GuardPlugin.pluginContext, filename);
         FileManager manager = context.get(FileManager.key);
         manager.addSourceFile(new TiecodeTempFile(filename, content));
     }
@@ -59,5 +62,9 @@ public class StringEncodeAction extends TiecodeCompilerAction {
             StringEncoder encoder = new StringEncoder();
             encoder.modify((TCTree.TCCompilationUnit) unit);
         }
+    }
+
+    private void modifyControlFlows() {
+
     }
 }

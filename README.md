@@ -1,2 +1,2 @@
-# Tiecode-plugin-StringEncode
-结绳中文系列项目字符串加密插件
+# Tiecode-plugin-Guard
+结绳中文系列项目混淆+字符串加密插件

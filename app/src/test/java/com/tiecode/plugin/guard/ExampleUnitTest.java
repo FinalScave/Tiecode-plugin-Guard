@@ -1,4 +1,4 @@
-package com.tiecode.plugin.stringencode;
+package com.tiecode.plugin.guard;
 
 import org.junit.Test;
 
