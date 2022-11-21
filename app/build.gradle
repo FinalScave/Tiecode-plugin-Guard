@@ -10,7 +10,7 @@ android {
         minSdk 21
         targetSdk 32
         versionCode 1
-        versionName "1.0.1"
+        versionName "1.0.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,7 +22,7 @@ android {
             android.applicationVariants.all {
                 variant ->
                     variant.outputs.all {
-                        output -> output.outputFileName = "结绳中文系列字符串加密器-" + defaultConfig.versionName + ".tpk"
+                        output -> output.outputFileName = "结绳中文系列应用保护器-" + defaultConfig.versionName + ".tpk"
                     }
             }
         }
@@ -34,7 +34,7 @@ android {
 }
 
 dependencies {
-    compileOnly("cn.tiecode:plugin-api:1.0.0-alpha30")
+    compileOnly("cn.tiecode:plugin-api:1.0.0-alpha34")
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
