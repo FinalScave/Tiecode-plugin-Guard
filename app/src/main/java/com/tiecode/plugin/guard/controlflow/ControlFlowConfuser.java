@@ -101,7 +101,7 @@ public final class ControlFlowConfuser extends TreeModifier<Void> {
 
     @Override
     public TCTree visitMethod(TCTree.TCMethodDeclare tree, Void param) {
-        if (tree.block == null) {
+        if (tree.block == null || tree.modifiers.isAsync()) {
             return tree;
         }
         enclMethods.push(tree);
