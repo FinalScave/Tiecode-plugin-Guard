@@ -49,7 +49,7 @@ public final class ControlFlowConfuser extends TreeModifier<Void> {
     }
 
     public static boolean down() {
-        return random(0, 1) == 0;
+        return System.nanoTime() % 2 == 0;
     }
 
     public static int[] randOrders(int count, int standard, int breakN) {
@@ -146,6 +146,11 @@ public final class ControlFlowConfuser extends TreeModifier<Void> {
                 TCTree.TCStatement newSt = makeOpacityCode(block.statements.get(i));
                 block.statements.set(i, newSt);
             }
+            if (down()) {
+                TCTree.TCStatement junkCode = makeJunkCode();
+                block.statements.add(i, junkCode);
+                i++;
+            }
         }
         int count = block.statements.size();
         int[] orders = randOrders(count, n, breakN);
@@ -173,7 +178,47 @@ public final class ControlFlowConfuser extends TreeModifier<Void> {
     }
 
     private TCTree.TCStatement makeJunkCode() {
-        return null;
+        //判断不透明化指令加入哪边
+        boolean down = down();
+        TCTree.TCMethodInvocation tip = maker.methodInvocation(Names.of("取存储卡路径"), null, null);
+        TCTree.TCExpressionStatement first = maker.expressionStatement(tip);
+        int n1 = random(1, 100);
+        int n2 = random(1, 100);
+        TCTree.TCLiteral num1 = maker.literal(n1, TiecodeToken.INTEGER_LITERAL);
+        TCTree.TCLiteral num2 = maker.literal(n2, TiecodeToken.INTEGER_LITERAL);
+        List<TCTree.TCExpression> args = new ArrayList<>();
+        args.add(num1);
+        args.add(num2);
+        TCTree.TCMethodInvocation getPath = maker.methodInvocation(Names.of("取随机数"), null, args);
+        TCTree.TCExpressionStatement second = maker.expressionStatement(getPath);
+
+        TCTree.TCMethodInvocation invoke = maker.methodInvocation(Names.of("取当前时间戳"), null, null);
+        TCTree.TCLiteral two = maker.literal(2, TiecodeToken.INTEGER_LITERAL);
+        TCTree.TCLiteral zero = maker.literal(0, TiecodeToken.INTEGER_LITERAL);
+        TCTree.TCBinary binary = maker.binary(invoke, TiecodeToken.MOD, two);
+        TCTree.TCTypeCast cast = maker.typeCast(binary, maker.identifier(Names.INT));
+        TCTree.TCBinary cond;
+        if (down) {
+            cond = maker.binary(cast, TiecodeToken.GTEQ, zero);
+        } else {
+            cond = maker.binary(cast, TiecodeToken.LT, zero);
+        }
+        List<TCTree.TCStatement> thenPart = new ArrayList<>();
+        if (down) {
+            thenPart.add(first);
+        } else {
+            thenPart.add(second);
+        }
+        TCTree.TCBlock thenBlock = maker.block(thenPart);
+        List<TCTree.TCStatement> elsePart = new ArrayList<>();
+        if (down) {
+            elsePart.add(second);
+        } else {
+            elsePart.add(first);
+        }
+        TCTree.TCBlock elseBock = maker.block(elsePart);
+        TCTree.TCIf ifSt = maker.ifSt(cond, thenBlock, elseBock);
+        return ifSt;
     }
 
     private TCTree.TCStatement makeOpacityCode(TCTree.TCStatement tree) {
@@ -322,7 +367,9 @@ public final class ControlFlowConfuser extends TreeModifier<Void> {
 
         @Override
         public Void visitVariable(TCTree.TCVariableDeclare tree, Void unused) {
-            variables.add(tree);
+            if (!tree.isParameter) {
+                variables.add(tree);
+            }
             return null;
         }
     }

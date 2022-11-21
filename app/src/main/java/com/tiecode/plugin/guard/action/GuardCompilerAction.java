@@ -7,6 +7,7 @@ import com.tiecode.develop.util.firstparty.android.SettingUtils;
 import com.tiecode.develop.util.firstparty.file.FileUtils;
 import com.tiecode.platform.compiler.api.file.FileManager;
 import com.tiecode.platform.compiler.api.file.TiecodeTempFile;
+import com.tiecode.platform.compiler.api.log.Messager;
 import com.tiecode.platform.compiler.api.process.TaskEvent;
 import com.tiecode.platform.compiler.api.process.Trees;
 import com.tiecode.platform.compiler.source.tree.CompilationUnitTree;
@@ -45,10 +46,13 @@ public final class GuardCompilerAction extends TiecodeCompilerAction {
                 }
                 break;
             case ANALYZE:
+                Messager messager = context.get(Messager.key);
                 if (SettingUtils.getBoolean(GuardSettingAction.KEY_STRING_ENCODE, true)) {
+                    messager.info("执行字符串加密...");
                     modifyStrings();
                 }
                 if (SettingUtils.getBoolean(GuardSettingAction.KEY_FLOW_CONFUSE, true)) {
+                    messager.info("执行控制流混淆...");
                     modifyControlFlows();
                 }
                 break;
